@@ -4,10 +4,23 @@ const { middleware, errorMiddleware } = require('@envoy/envoy-integrations-sdk')
 const app = express();
 app.use(middleware());
 
+// Install webhook endpoint where Envoy sends config data
+app.post('/install', (req, res) => {
+    const maxVisitDuration = Number(req.body.configuration?.TIME);
+
+    // Validate the input value
+    if (isNaN(maxVisitDuration) || !Number.isInteger(maxVisitDuration) || maxVisitDuration < 0 || maxVisitDuration > 180) {
+        return res.sendFailed('Please enter a whole number between 0 and 180 for max visit duration.');
+    }
+
+    // Return the config so Envoy saves it
+    res.send({ TIME: maxVisitDuration });
+});
+  
 app.post('/visitor-sign-out', async (req, res) => {
     const envoy = req.envoy; // our middleware adds an "envoy" object to req.
     const job = envoy.job;
-    const durationLimit = envoy.meta.config.TIME;
+    const durationLimit = envoy.meta.config.TIME || 180; // default to 180 if no config
     const visitor = envoy.payload;
 
     const visitorName = visitor.attributes['full-name'];
