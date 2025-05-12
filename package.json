@@ -1,0 +1,27 @@
+{
+  "name": "jennenvoy",
+  "version": "1.0.0",
+  "description": "Node.js application that interacts with Envoy",
+  "main": "index.js",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jennantilla/jennenvoy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jennantilla/jennenvoy/issues"
+  },
+  "homepage": "https://github.com/jennantilla/jennenvoy#readme",
+  "dependencies": {
+    "@envoy/envoy-integrations-sdk": "^1.5.0",
+    "express": "^5.1.0"
+  }
+}
