@@ -6,7 +6,10 @@ app.use(middleware());
 
 // Install webhook endpoint where Envoy sends config data
 app.post('/install', (req, res) => {
-    const maxVisitDuration = Number(req.body.configuration?.TIME);
+    console.log('Request Body:', req.body);
+    const maxVisitDuration = Number(req.body.payload?.TIME);
+
+    console.log('Received maxVisitDuration:', maxVisitDuration);
 
     // Validate the input value
     if (isNaN(maxVisitDuration) || !Number.isInteger(maxVisitDuration) || maxVisitDuration < 0 || maxVisitDuration > 180) {
